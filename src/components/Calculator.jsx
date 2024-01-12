@@ -18,13 +18,28 @@ function Calculator() {
       setEvaluated(false);
     }
     if (res === "0" && e.target.name === "0") return;
-    else if (res === "0" && !/[+\-x÷%.]/.test(e.target.name)) {
-      setRes(e.target.name);
+    else if (res === "0") {
+      if (/[.+\-x÷%]/.test(e.target.name)) {
+        setRes(res.concat(e.target.name));
+      } else {
+        setRes(e.target.name);
+      }
       return;
     }
+
+    if (!res && /[+\-%x÷]/.test(e.target.name)) {
+      return;
+    } else if (
+      (!res || /[+\-%x÷]/.test(e.target.name)) &&
+      e.target.name === "."
+    ) {
+      setRes(res.concat("0."));
+      return;
+    }
+
     const lastCharIsOperator = /[+\-x÷%.]$/.test(res);
-    const newValueIsOperator = /[+\-x÷%.]/.test(e.target.name);
-    const specialOperator = /[+\-x÷%]/.test(res);
+    const newValueIsOperator = /[+\-x÷%]/.test(e.target.name);
+
     if (lastCharIsOperator && newValueIsOperator) {
       if (res[res.length - 1] === "+" && e.target.name === "-") {
         setRes(res.slice(0, -1).concat("-"));
@@ -35,18 +50,20 @@ function Calculator() {
       }
       return;
     }
+    if (e.target.name === ".") {
+      let specialCharfound = 0;
+      for (let i = res.length - 1; i >= 0; i--) {
+        if (/[+\-x÷%]/.test(res[i])) {
+          specialCharfound = 1;
+          break;
+        } else if (res[i] === ".") {
+          specialCharfound = 2;
+          break;
+        }
+      }
+      if (specialCharfound === 2) return;
+    }
 
-    if (!res && /[+\-%x÷]/.test(e.target.name)) {
-      return;
-    }
-    if (
-      e.target.name === "." &&
-      res.includes(".") &&
-      !specialOperator &&
-      !lastCharIsOperator
-    ) {
-      return;
-    }
     setRes((res) => res.concat(e.target.name));
   }
 
@@ -65,26 +82,26 @@ function Calculator() {
     if (evaluated) return;
     const sanitizedExpression = res.replace(/x/g, "*");
     const sanitizedExpression2 = sanitizedExpression.replace(/÷/g, "/");
-    const result = eval(sanitizedExpression2);
-
-    if (isNaN(result) || !isFinite(result)) {
+    let result = 0;
+    try {
+      result = eval(sanitizedExpression2);
+    } catch (err) {
       setRes("ERROR");
-    } else {
-      const formattedResult =
-        result.toString().length > 7
-          ? result.toExponential(2)
-          : result.toString();
-      setRes(formattedResult);
-      setEvaluated(true);
-      setResponses((Responses) => [
-        {
-          expression: res,
-          result: formattedResult,
-        },
-        ...Responses.slice(0, maxHistoryItems - 1),
-      ]);
-      console.log(Responses);
+      return;
     }
+    const formattedResult =
+      result.toString().length > 10
+        ? result.toExponential(2)
+        : result.toString();
+    setRes(formattedResult);
+    setEvaluated(true);
+    setResponses((Responses) => [
+      {
+        expression: res,
+        result: formattedResult,
+      },
+      ...Responses.slice(0, maxHistoryItems - 1),
+    ]);
   }
 
   //handle +-
@@ -108,7 +125,10 @@ function Calculator() {
       return;
     }
     const percentageResult = parsedInput * 0.01;
-    const precision = (percentageResult.toString().split(".")[1] || "").length;
+    const precision = Math.min(
+      7,
+      (percentageResult.toString().split(".")[1] || "").length
+    );
     setRes(percentageResult.toFixed(precision));
   }
 
