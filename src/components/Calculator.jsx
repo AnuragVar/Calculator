@@ -8,7 +8,7 @@ function Calculator() {
   const [res, setRes] = useState("");
   const [Responses, setResponses] = useState([]);
   const [evaluated, setEvaluated] = useState(0);
-  const maxHistoryItems = 2;
+  const maxHistoryItems = 5;
   //handle simple clicks
   function handleClick(e) {
     if (res === "ERROR") return;
@@ -60,6 +60,7 @@ function Calculator() {
 
   //handle =
   function handleEvaluation() {
+    if (evaluated) return;
     const sanitizedExpression = res.replace(/x/g, "*");
     const sanitizedExpression2 = sanitizedExpression.replace(/÷/g, "/");
     const result = eval(sanitizedExpression2);
