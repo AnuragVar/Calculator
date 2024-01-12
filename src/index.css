@@ -155,22 +155,6 @@ body {
   justify-content: space-between;
   /* background-color: #0d0d0d; */
 }
-
-/* body {
-    color: rgba(55, 50, 50, 0.87);
-    background-color: #242424;
-    color-scheme: dark;
-  } */
-/* .iphone {
-    margin: auto;
-    border: 10px solid black;
-    border-radius: 40px;
-    width: 192px;
-    height: 450px;
-    position: relative;
-    box-shadow: 0px 20px 15px #33333335;
-  } */
-
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

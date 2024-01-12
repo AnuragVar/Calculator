@@ -6,21 +6,17 @@ import Drop from "./Dropdown";
 
 function Calculator() {
   const [res, setRes] = useState("");
+  const [answer, setAnswer] = useState("");
   const [Responses, setResponses] = useState([]);
   const [evaluated, setEvaluated] = useState(0);
   const maxHistoryItems = 5;
+
   //handle simple clicks
   function handleClick(e) {
     if (res === "ERROR") return;
+
     if (evaluated === true) {
-      if (/[+\-x÷%]/.test(e.target.name)) return;
-      setRes(e.target.name);
       setEvaluated(false);
-      return;
-    }
-    if (res.includes("ERROR")) {
-      setRes("");
-      if (/[+\-x÷%]/.test(e.target.name)) return;
     }
     if (res === "0" && e.target.name === "0") return;
     else if (res === "0" && !/[+\-x÷%.]/.test(e.target.name)) {
@@ -28,8 +24,18 @@ function Calculator() {
       return;
     }
     const lastCharIsOperator = /[+\-x÷%.]$/.test(res);
-    const newValueIsOperator = /[+\x÷%.]/.test(e.target.name);
+    const newValueIsOperator = /[+\-x÷%.]/.test(e.target.name);
     const specialOperator = /[+\-x÷%]/.test(res);
+    if (lastCharIsOperator && newValueIsOperator) {
+      if (res[res.length - 1] === "+" && e.target.name === "-") {
+        setRes(res.slice(0, -1).concat("-"));
+        return;
+      } else if (res[res.length - 1] === "-" && e.target.name === "+") {
+        setRes(res.slice(0, -1).concat("+"));
+        return;
+      }
+      return;
+    }
 
     if (!res && /[+\-%x÷]/.test(e.target.name)) {
       return;
@@ -40,9 +46,6 @@ function Calculator() {
       !specialOperator &&
       !lastCharIsOperator
     ) {
-      return;
-    }
-    if (lastCharIsOperator && newValueIsOperator) {
       return;
     }
     setRes((res) => res.concat(e.target.name));
