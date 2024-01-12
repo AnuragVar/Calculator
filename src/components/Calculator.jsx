@@ -2,6 +2,7 @@ import { useState } from "react";
 import BackButton from "./BackButton";
 import Buttons from "./Buttons";
 import Display from "./Display";
+import Drop from "./Dropdown";
 
 function Calculator() {
   const [res, setRes] = useState("");
@@ -127,16 +128,21 @@ function Calculator() {
 
   return (
     <div className="keypad">
-      <Display displayValue={displayValue} />
-      <Buttons
-        handleBackspace={handleBackspace}
-        handleClear={handleClear}
-        handleClick={handleClick}
-        handleEvaluation={handleEvaluation}
-        handlePercentage={handlePercentage}
-        handleToggleSign={handleToggleSign}
-      />
-      <BackButton />
+      <div>
+        <Drop Responses={Responses} />
+      </div>
+      <div>
+        <Display displayValue={displayValue} />
+        <Buttons
+          handleBackspace={handleBackspace}
+          handleClear={handleClear}
+          handleClick={handleClick}
+          handleEvaluation={handleEvaluation}
+          handlePercentage={handlePercentage}
+          handleToggleSign={handleToggleSign}
+        />
+        <BackButton />
+      </div>
     </div>
   );
 }
