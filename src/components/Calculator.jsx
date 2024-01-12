@@ -6,7 +6,6 @@ import Drop from "./Dropdown";
 
 function Calculator() {
   const [res, setRes] = useState("");
-  const [answer, setAnswer] = useState("");
   const [Responses, setResponses] = useState([]);
   const [evaluated, setEvaluated] = useState(0);
   const maxHistoryItems = 5;
