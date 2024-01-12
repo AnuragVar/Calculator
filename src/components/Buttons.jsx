@@ -60,7 +60,7 @@ function Buttons({ res, setRes }) {
       setRes("ERROR");
     } else {
       const formattedResult =
-        result.toString().length > 8
+        result.toString().length > 7
           ? result.toExponential()
           : result.toString();
       setRes(formattedResult);

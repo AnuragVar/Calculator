@@ -1,18 +1,20 @@
 import { useState } from "react";
-import "./App.css";
+
 import Calculator from "./components/Calculator.jsx";
 import Buttons from "./components/Buttons.jsx";
 import IphoneDisplay from "./components/IphoneDisplay.jsx";
 import Display from "./components/Display.jsx";
 import BackButton from "./components/BackButton.jsx";
+import Modall from "./components/Modal.jsx";
 
 function App() {
   const [res, setRes] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const displayValue = res.slice(-8);
+  const displayValue = res.slice(-7);
   return (
     <div>
+      <Modall isOpen={isOpen} />
       <Calculator>
         {!isOpen && <IphoneDisplay setIsOpen={setIsOpen} isOpen={isOpen} />}
         {isOpen && (

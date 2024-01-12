@@ -1,5 +1,8 @@
 html,
 body {
+  background: url("./assets/bb.avif");
+  background-size: cover;
+  padding-top: 10px;
   height: 100%;
 }
 .iphone {
@@ -146,8 +149,9 @@ body {
 .keypad {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100%;
   width: 100%;
+  font-size: 50px;
   justify-content: flex-end;
   /* background-color: #0d0d0d; */
 }
@@ -171,10 +175,10 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  padding: 20px;
   gap: 5px;
-  padding-right: 0px;
-  padding-bottom: 0px;
+
+  padding: 0px;
+  padding-left: 15px;
 }
 .buttons button {
   width: 55px;
@@ -200,7 +204,7 @@ input {
   border: 0px;
   text-align: right;
   /* font-weight: 300; */
-  font-size: 50px;
+  font-size: 150px;
   letter-spacing: 1px;
 }
 
@@ -222,7 +226,19 @@ button:active {
   /* align-self: flex-end */
   width: 30%;
   margin: auto;
-  margin-bottom: 0px;
+  margin-bottom: 1%;
   margin-top: 40px;
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  display: flex;
+  position: absolute;
+  font-size: 40px;
+  top: 20px;
+  right: 50px;
+  width: 50px;
+  aspect-ratio: 1;
   cursor: pointer;
 }
