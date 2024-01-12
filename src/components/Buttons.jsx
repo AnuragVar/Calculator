@@ -6,6 +6,7 @@ function Buttons({ res, setRes }) {
   //handle simple clicks
   function handleClick(e) {
     if (evaluated === true) {
+      if (/[+\-x÷%]/.test(e.target.name)) return;
       setRes(e.target.name);
       setEvaluated(false);
       return;
@@ -61,7 +62,7 @@ function Buttons({ res, setRes }) {
     } else {
       const formattedResult =
         result.toString().length > 7
-          ? result.toExponential()
+          ? result.toExponential(2)
           : result.toString();
       setRes(formattedResult);
       setEvaluated(true);
