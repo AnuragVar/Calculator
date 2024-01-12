@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [res, setRes] = useState("");
   const [Responses, setResponses] = useState([null]);
-  const [isOpen, setIsOpen] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   const displayValue = res.slice(-8);
 
