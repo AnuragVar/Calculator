@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { MyContext } from "../contexts/MyContext";
 
-function Modall({ isOpen }) {
+function Modall() {
+  const { isOpen } = useContext(MyContext);
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);

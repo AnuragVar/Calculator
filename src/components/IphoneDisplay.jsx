@@ -1,4 +1,8 @@
-function IphoneDisplay({ isOpen, setIsOpen }) {
+import { useContext } from "react";
+import { MyContext } from "../contexts/MyContext";
+
+function IphoneDisplay() {
+  const { isOpen, setIsOpen } = useContext(MyContext);
   return (
     <>
       <div className="screen"></div>
